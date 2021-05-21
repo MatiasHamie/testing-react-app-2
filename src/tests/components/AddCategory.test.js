@@ -35,4 +35,19 @@ describe("Pruebas en <AddCategory />", () => {
 
     expect(setCategories).not.toHaveBeenCalled();
   });
+
+  test("Debe llamar al setCategories y limpiar la caja de texto", () => {
+    const newInputValue = "Hola Mundo";
+
+    // cambio el valor del input y hago un submit
+    wrapper
+      .find("input")
+      .simulate("change", { target: { value: newInputValue } });
+    wrapper.find("form").simulate("submit", { preventDefault: () => {} });
+
+    // el setCategories se llama dentro del handleSubmit
+    expect(setCategories).toHaveBeenCalled();
+
+    expect(wrapper.find("input").prop("value")).toBe("");
+  });
 });
